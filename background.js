@@ -138,23 +138,46 @@ async function resetTimer() {
 }
 
 async function addBlockingRules() {
-  const rules = timerState.settings.blockedSites.map((site, index) => ({
-    id: BLOCKED_RULE_ID_START + index,
-    priority: 1,
-    action: {
-      type: "redirect",
-      redirect: { extensionPath: "/blocked.html" },
-    },
-    condition: {
-      urlFilter: `*://*.${site}/*`,
-      resourceTypes: ["main_frame"],
-    },
-  }));
+  const rules = [];
+  let ruleId = BLOCKED_RULE_ID_START;
+
+  timerState.settings.blockedSites.forEach((site) => {
+    // Rule for main domain (e.g., x.com, facebook.com)
+    rules.push({
+      id: ruleId++,
+      priority: 1,
+      action: {
+        type: "redirect",
+        redirect: { extensionPath: "/blocked.html" },
+      },
+      condition: {
+        urlFilter: `*://${site}/*`,
+        resourceTypes: ["main_frame"],
+      },
+    });
+
+    // Rule for subdomains (e.g., www.x.com, mobile.x.com)
+    rules.push({
+      id: ruleId++,
+      priority: 1,
+      action: {
+        type: "redirect",
+        redirect: { extensionPath: "/blocked.html" },
+      },
+      condition: {
+        urlFilter: `*://*.${site}/*`,
+        resourceTypes: ["main_frame"],
+      },
+    });
+  });
 
   try {
     await chrome.declarativeNetRequest.updateDynamicRules({
       addRules: rules,
     });
+    console.log(
+      `Added ${rules.length} blocking rules for ${timerState.settings.blockedSites.length} sites`
+    );
   } catch (error) {
     console.error("Failed to add blocking rules:", error);
   }
@@ -163,8 +186,9 @@ async function addBlockingRules() {
 async function removeBlockingRules() {
   // Remove a wide range of rule IDs to ensure we get all existing rules
   // This handles cases where sites were removed from the list
+  // Since we now create 2 rules per site, we need more rule IDs
   const ruleIds = [];
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 100; i++) {
     ruleIds.push(BLOCKED_RULE_ID_START + i);
   }
 
