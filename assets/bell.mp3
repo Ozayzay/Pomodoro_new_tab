@@ -1,0 +1,4 @@
+// Placeholder for notification bell sound
+// This file should contain a 2-second soft bell sound in MP3 format
+// Recommended: A gentle chime or bell sound that's pleasant and not jarring
+// The extension will work without this file, but notifications will be silent

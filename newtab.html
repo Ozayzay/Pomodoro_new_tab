@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Shit Done</title>
+  <link rel="stylesheet" href="newtab.css">
+</head>
+<body>
+  <div class="background"></div>
+  
+  <div class="stats-corner">
+    <span id="dailyStats">⏱ 0h 0m focused today</span>
+  </div>
+  
+  <div class="container">
+    <div class="timer-section">
+      <div class="mode-labels">
+        <span id="focusLabel" class="mode-label active">FOCUS</span>
+        <span id="breakLabel" class="mode-label">BREAK</span>
+      </div>
+      
+      <div class="timer-ring-container">
+        <svg class="timer-ring" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="90" class="timer-ring-background"></circle>
+          <circle cx="100" cy="100" r="90" class="timer-ring-progress" id="timerRingProgress"></circle>
+        </svg>
+        <div class="timer-content">
+          <div class="timer-display" id="timerDisplay">25:00</div>
+        </div>
+      </div>
+      
+      <div class="timer-inputs">
+        <input type="number" id="focusInput" min="1" max="120" value="25" class="timer-input">
+        <span class="input-label">Focus (min)</span>
+        <input type="number" id="breakInput" min="1" max="60" value="5" class="timer-input">
+        <span class="input-label">Break (min)</span>
+      </div>
+      
+      <input type="text" id="taskLabel" class="task-input" placeholder="What are you working on?" value="Review class notes">
+      
+      <div class="controls">
+        <button id="startPauseBtn" class="control-btn primary">Start</button>
+        <button id="resetBtn" class="control-btn secondary">Reset</button>
+      </div>
+    </div>
+    
+    <div class="side-panel">
+      <div class="todo-section">
+        <h3>Quick Tasks</h3>
+        <div class="todo-input-container">
+          <input type="text" id="todoInput" placeholder="Add a task..." maxlength="100">
+          <button id="addTodoBtn">+</button>
+        </div>
+        <ul id="todoList"></ul>
+      </div>
+      
+      <div class="blocked-sites-section">
+        <h3>Blocked Sites</h3>
+        <div class="blocked-input-container">
+          <input type="text" id="blockedSiteInput" placeholder="Add a site (e.g., facebook.com)" maxlength="100">
+          <button id="addBlockedSiteBtn">+</button>
+        </div>
+        <div class="blocked-sites-list" id="blockedSitesList"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="progress-tracker">
+    <h3>Focus Progress - Last 365 Days</h3>
+    <div class="progress-grid" id="progressGrid"></div>
+    <div class="progress-legend">
+      <span class="legend-text">Less</span>
+      <div class="legend-colors">
+        <div class="legend-square level-0" title="No focus time"></div>
+        <div class="legend-square level-1" title="Up to 3 hours"></div>
+        <div class="legend-square level-2" title="3-4.5 hours"></div>
+        <div class="legend-square level-3" title="4.5-6 hours"></div>
+        <div class="legend-square level-4" title="6+ hours"></div>
+      </div>
+      <span class="legend-text">More</span>
+    </div>
+  </div>
+  
+  <script src="newtab.js"></script>
+</body>
+</html>

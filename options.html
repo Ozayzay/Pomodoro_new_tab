@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Shit Done - Options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Get Shit Done - Settings</h1>
+    </header>
+    
+    <main>
+      <section class="settings-section">
+        <h2>Timer Settings</h2>
+        <div class="setting-group">
+          <label for="focusMinutes">Focus session (minutes):</label>
+          <input type="number" id="focusMinutes" min="1" max="120" value="25">
+        </div>
+        <div class="setting-group">
+          <label for="shortBreakMinutes">Short break (minutes):</label>
+          <input type="number" id="shortBreakMinutes" min="1" max="60" value="5">
+        </div>
+        <div class="setting-group">
+          <label for="longBreakMinutes">Long break (minutes):</label>
+          <input type="number" id="longBreakMinutes" min="1" max="120" value="15">
+        </div>
+        <div class="setting-group">
+          <label for="cyclesBeforeLongBreak">Focus sessions before long break:</label>
+          <input type="number" id="cyclesBeforeLongBreak" min="1" max="10" value="4">
+        </div>
+      </section>
+      
+      <section class="settings-section">
+        <h2>Notifications</h2>
+        <div class="setting-group">
+          <label class="checkbox-container">
+            <input type="checkbox" id="enableNotifications" checked>
+            <span class="checkmark"></span>
+            <span class="label-text">Show browser notifications</span>
+          </label>
+        </div>
+        <div class="setting-group">
+          <label class="checkbox-container">
+            <input type="checkbox" id="enableChime" checked>
+            <span class="checkmark"></span>
+            <span class="label-text">Play sound chime</span>
+          </label>
+        </div>
+      </section>
+      
+      <section class="settings-section">
+        <h2>Site Blocking</h2>
+        <div class="setting-group">
+          <label for="blockedSites">Blocked sites (one domain per line):</label>
+          <textarea 
+            id="blockedSites" 
+            rows="6" 
+            placeholder="facebook.com&#10;instagram.com&#10;reddit.com&#10;twitter.com&#10;youtube.com"
+          ></textarea>
+          <small class="help-text">
+            Enter domain names without protocol (e.g., "facebook.com" not "https://facebook.com").
+            Wildcards like "*.facebook.com" will block all subdomains.
+          </small>
+        </div>
+      </section>
+      
+      <section class="settings-section">
+        <h2>Data Management</h2>
+        <div class="setting-group">
+          <button id="exportBtn" class="secondary-btn">Export Settings</button>
+          <button id="importBtn" class="secondary-btn">Import Settings</button>
+          <input type="file" id="importFile" accept=".json" style="display: none;">
+        </div>
+        <div class="setting-group">
+          <label for="settingsJson">Settings JSON:</label>
+          <textarea id="settingsJson" rows="8" placeholder="Settings will appear here when exported..."></textarea>
+        </div>
+        <div class="setting-group">
+          <button id="resetStatsBtn" class="danger-btn">Reset Daily Statistics</button>
+          <small class="help-text">This will reset your "focused today" counter to zero.</small>
+        </div>
+      </section>
+    </main>
+    
+    <footer>
+      <div class="button-group">
+        <button id="saveBtn" class="primary-btn">Save Settings</button>
+        <button id="cancelBtn" class="secondary-btn">Cancel</button>
+      </div>
+      <div class="status" id="statusMessage"></div>
+    </footer>
+  </div>
+  
+  <script src="options.js"></script>
+</body>
+</html>

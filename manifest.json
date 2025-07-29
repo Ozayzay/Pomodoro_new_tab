@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Get Shit Done",
+  "description": "Minimal Pomodoro dashboard + site blocker.",
+  "version": "1.0.0",
+  "icons": {
+    "128": "assets/icon128.png",
+    "48": "assets/icon128.png",
+    "16": "assets/icon128.png"
+  },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "assets/icon128.png"
+  },
+  "options_page": "options.html",
+  "permissions": [
+    "storage",
+    "alarms",
+    "tabs",
+    "notifications",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostnameAccess"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "declarative_net_request": {
+    "rule_resources": []
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["blocked.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
