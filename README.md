@@ -115,11 +115,22 @@ This extension does exactly what I need: **simple Pomodoro timing + effective si
 focused-pomodoro/
 ├── manifest.json          # Extension configuration
 ├── background.js          # Service worker (timer logic, site blocking)
-├── newtab.html/css/js     # Main dashboard interface
-├── popup.html/css/js      # Extension popup (mini controls)
-├── options.html/css/js    # Settings page
-├── blocked.html/css/js    # Page shown when sites are blocked
+├── newtab.html            # Main dashboard HTML
+├── newtab.css             # Main dashboard styles
+├── newtab.js              # Main dashboard JavaScript
+├── newtab_clean.js        # Alternative clean version of dashboard JS
+├── popup.html             # Extension popup HTML
+├── popup.css              # Extension popup styles
+├── popup.js               # Extension popup JavaScript
+├── options.html           # Settings page HTML
+├── options.css            # Settings page styles
+├── options.js             # Settings page JavaScript
+├── blocked.html           # Blocked page HTML
+├── blocked.css            # Blocked page styles
+├── blocked.js             # Blocked page JavaScript
+├── README.md              # This documentation
 └── assets/                # Icons and images
+    └── icon128.png        # Extension icon
 ```
 
 ## Key Features Explained
