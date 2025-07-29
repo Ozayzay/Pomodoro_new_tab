@@ -161,9 +161,12 @@ async function addBlockingRules() {
 }
 
 async function removeBlockingRules() {
-  const ruleIds = timerState.settings.blockedSites.map(
-    (_, index) => BLOCKED_RULE_ID_START + index
-  );
+  // Remove a wide range of rule IDs to ensure we get all existing rules
+  // This handles cases where sites were removed from the list
+  const ruleIds = [];
+  for (let i = 0; i < 50; i++) {
+    ruleIds.push(BLOCKED_RULE_ID_START + i);
+  }
 
   try {
     await chrome.declarativeNetRequest.updateDynamicRules({
@@ -172,6 +175,13 @@ async function removeBlockingRules() {
   } catch (error) {
     console.error("Failed to remove blocking rules:", error);
   }
+}
+
+async function updateBlockingRules() {
+  // First remove all existing rules
+  await removeBlockingRules();
+  // Then add updated rules
+  await addBlockingRules();
 }
 async function updateProgressHistory(date, seconds) {
   try {
@@ -282,6 +292,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     case "updateSettings":
       timerState.settings = { ...timerState.settings, ...message.settings };
       saveSettings();
+      // If timer is running and in focus mode, update blocking rules immediately
+      if (timerState.isRunning && timerState.mode === "focus") {
+        updateBlockingRules();
+      }
       sendResponse({ success: true });
       break;
     case "setTimerDuration":
